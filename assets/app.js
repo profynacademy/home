@@ -685,10 +685,10 @@ $('#epCount').textContent = EPISODES.length;
    progress is saved on this device only.
    ========================================================= */
 const FIREBASE_CONFIG = {
-  apiKey: "",
-  authDomain: "",
-  projectId: "",
-  appId: ""
+  apiKey: "AIzaSyD3Qx778Gq-CMM8FsrI1mbh5Wz6LaaZ4Ro",
+  authDomain: "profyn-c2c0f.firebaseapp.com",
+  projectId: "profyn-c2c0f",
+  appId: "1:849382158261:web:2caced6e718de92c1873fc"
 };
 const FIREBASE_SDK = 'https://www.gstatic.com/firebasejs/13.0.0';
 
