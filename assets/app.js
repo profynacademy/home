@@ -382,8 +382,8 @@ const QUESTIONS = {
 /* Sessions run on alternating Sundays. Update these as they pass. */
 const SESSIONS = [
   { title:"Property Hacking 101", month:"Sep", day:"21", year:2026, time:"6:00 to 8:00 PM ET", taken:500, seats:500, host:"Marcus Vane", done:true },
-  { title:"Tax Saving Secrets", month:"Oct", day:"05", year:2026, time:"6:00 to 8:00 PM ET", taken:477, seats:500, host:"Priya Raghunathan" },
-  { title:"The Money Glow Up", month:"Oct", day:"19", year:2026, time:"6:00 to 8:00 PM ET", taken:453, seats:500, host:"Elena Rossi" }
+  { title:"Tax Saving Secrets", month:"Oct", day:"05", year:2026, time:"6:00 to 8:00 PM ET", taken:477, seats:500, host:"Priya Raghunathan", done:true },
+  { title:"The Money Glow Up", month:"Nov", day:"24", year:2026, time:"6:00 to 8:00 PM ET", taken:483, seats:500, host:"Elena Rossi" }
 ];
 
 const EPISODES = [
