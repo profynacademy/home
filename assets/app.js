@@ -496,7 +496,7 @@ function routeFromPath(path){
 }
 
 const ROUTE_META = {
-  home:      { title:'Profyn Academy | Free Financial Literacy Courses for Gen Z', desc:'Student-led financial literacy for Gen Z. 40 free courses on budgeting, credit scores, student loans, taxes and investing, plus live workshops.' },
+  home:      { title:'Profyn | Free Financial Literacy Courses for Gen Z', desc:'Student-led financial literacy for Gen Z. 40 free courses on budgeting, credit scores, student loans, taxes and investing, plus live workshops.' },
   courses:   { title:'40 Free Personal Finance Courses for Students | Profyn', desc:'Budgeting, credit scores, student loans, taxes, investing and more. 40 free, self-paced courses built for high school and college students.' },
   practice:  { title:'Personal Finance Practice Questions | Profyn', desc:'270 practice questions across nine topics, from budgeting and credit to taxes and investing. Every answer explains the reasoning.' },
   workshops: { title:'Live Financial Literacy Workshops | Profyn', desc:'Free two-hour workshops on Zoom, twice a month. One money topic worked through properly, with time for your questions at the end.' },
@@ -507,7 +507,7 @@ const ROUTE_META = {
   learning:  { title:'My learning | Profyn', desc:'Your Profyn courses, progress and certificates.', noindex:true },
   welcome:   { title:'Welcome to Profyn', desc:'Your Profyn membership.', noindex:true },
   privacy:   { title:'Privacy | Profyn', desc:'What Profyn stores about you, why, and how to have it deleted.' },
-  terms:     { title:'Terms | Profyn', desc:'The terms for using Profyn Academy.' },
+  terms:     { title:'Terms | Profyn', desc:'The terms for using Profyn.' },
   'track-cert': { title:'Certificate | Profyn', desc:'A Profyn course certificate.', noindex:true },
   '404':     { title:'Page not found | Profyn', desc:'This page does not exist.', noindex:true }
 };
@@ -528,7 +528,7 @@ function ldFor(page, param){
     const url = SITE + pathFor('course', t.id);
     return { '@context':'https://schema.org', '@graph':[
       { '@type':'Course', '@id':url + '#course', name:t.title, description:t.blurb, url, inLanguage:'en-US',
-        provider:{ '@type':'Organization', name:'Profyn Academy', sameAs:SITE + '/' },
+        provider:{ '@type':'Organization', name:'Profyn', sameAs:SITE + '/' },
         educationalLevel:t.level, about:t.cat, isAccessibleForFree:true,
         offers:{ '@type':'Offer', category:'Free', price:0, priceCurrency:'USD' },
         hasCourseInstance:{ '@type':'CourseInstance', courseMode:'Online', courseWorkload:'PT' + t.hours.replace(/\s+/g,'').toUpperCase() } },
