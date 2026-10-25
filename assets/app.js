@@ -496,7 +496,7 @@ function routeFromPath(path){
 }
 
 const ROUTE_META = {
-  home:      { title:'Profyn Academy | Free Financial Literacy Courses for Gen Z', desc:'Student-led financial literacy for Gen Z. 40 free courses on budgeting, credit scores, student loans, taxes and investing, plus live workshops.' },
+  home:      { title:'Profyn - Money skills for early careers', desc:'Student-led financial literacy for Gen Z. 40 free courses on budgeting, credit scores, student loans, taxes and investing, plus live workshops.' },
   courses:   { title:'40 Free Personal Finance Courses for Students | Profyn', desc:'Budgeting, credit scores, student loans, taxes, investing and more. 40 free, self-paced courses built for high school and college students.' },
   practice:  { title:'Personal Finance Practice Questions | Profyn', desc:'270 practice questions across nine topics, from budgeting and credit to taxes and investing. Every answer explains the reasoning.' },
   workshops: { title:'Live Financial Literacy Workshops | Profyn', desc:'Free two-hour workshops on Zoom, twice a month. One money topic worked through properly, with time for your questions at the end.' },
