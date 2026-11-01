@@ -891,6 +891,19 @@ p{text-wrap:pretty;}
 .person h3{font-size:1.15rem;margin-bottom:5px;}
 .person .role{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2);}
 .team-contact{padding-top:28px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px;}
+.leadership{margin-top:clamp(28px,4vw,44px);padding:clamp(24px,4vw,40px);border:1px solid var(--accent-edge);border-radius:var(--r-lg);background:var(--accent-wash);}
+.leadership-heading{margin-bottom:24px;}
+.leadership-heading .h-lg{margin:0;}
+.leadership-kicker,.leadership-label{font-family:var(--font-mono);font-size:.67rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);}
+.leadership-kicker{margin-bottom:7px;}
+.leadership-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px;}
+.leadership-card{min-width:0;display:flex;align-items:center;gap:16px;padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);}
+.leadership-mark{width:54px;height:54px;flex-shrink:0;display:grid;place-items:center;border-radius:15px;background:var(--accent);color:var(--accent-ink);font-family:var(--font-display);font-weight:700;font-size:1.1rem;}
+.leadership-copy{min-width:0;}
+.leadership-label{margin-bottom:5px;font-size:.58rem;letter-spacing:.09em;}
+.leadership-card h3{font-size:1.02rem;line-height:1.25;margin-bottom:5px;overflow-wrap:anywhere;}
+.leadership-card .role{font-family:var(--font-mono);font-size:.69rem;line-height:1.45;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);}
+@media (max-width:640px){.leadership{padding:22px;}}
 
 /* =========================================================
    SIGN UP AND LOG IN

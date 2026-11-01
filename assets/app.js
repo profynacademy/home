@@ -501,7 +501,7 @@ const ROUTE_META = {
   practice:  { title:'Personal Finance Practice Questions | Profyn', desc:'270 practice questions across nine topics, from budgeting and credit to taxes and investing. Every answer explains the reasoning.' },
   workshops: { title:'Live Financial Literacy Workshops | Profyn', desc:'Free two-hour workshops on Zoom, twice a month. One money topic worked through properly, with time for your questions at the end.' },
   listen:    { title:'Personal Finance Audio Library | Profyn', desc:'Short audio episodes on one money idea each, from credit scores to index funds. Made for a commute or a walk.' },
-  team:      { title:'Our Team | Profyn', desc:'Profyn is student-led. Meet the co-founders building free financial literacy for Gen Z.' },
+  team:      { title:'Our Team | Profyn', desc:'Profyn is student-led. Meet the co-founders and leadership team building free financial literacy for Gen Z.' },
   join:      { title:'Join Profyn | Free Financial Literacy for Students', desc:'Create a free Profyn account with Google or email and keep your course progress on every device.' },
   login:     { title:'Log in | Profyn', desc:'Log in to Profyn to pick up your courses where you left off.', noindex:true },
   learning:  { title:'My learning | Profyn', desc:'Your Profyn courses, progress and certificates.', noindex:true },
