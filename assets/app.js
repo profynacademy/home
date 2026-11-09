@@ -381,9 +381,9 @@ const QUESTIONS = {
 
 /* Sessions run on alternating Sundays. Update these as they pass. */
 const SESSIONS = [
-  { title:"Property Hacking 101", month:"Sep", day:"21", year:2026, time:"6:00 to 8:00 PM ET", taken:500, seats:500, host:"Marcus Vane", done:true },
-  { title:"Tax Saving Secrets", month:"Oct", day:"05", year:2026, time:"6:00 to 8:00 PM ET", taken:477, seats:500, host:"Priya Raghunathan", done:true },
-  { title:"The Money Glow Up", month:"Nov", day:"24", year:2026, time:"6:00 to 8:00 PM ET", taken:483, seats:500, host:"Elena Rossi" }
+  { id:"property-hacking-2026-09-21", title:"Property Hacking 101", month:"Sep", day:"21", year:2026, time:"6:00 to 8:00 PM ET", taken:500, seats:500, host:"Marcus Vane", done:true },
+  { id:"tax-saving-2026-10-05", title:"Tax Saving Secrets", month:"Oct", day:"05", year:2026, time:"6:00 to 8:00 PM ET", taken:477, seats:500, host:"Priya Raghunathan", done:true },
+  { id:"money-glow-up-2026-11-24", title:"The Money Glow Up", month:"Nov", day:"24", year:2026, time:"6:00 to 8:00 PM ET", taken:483, seats:500, host:"Elena Rossi" }
 ];
 
 const EPISODES = [
@@ -804,7 +804,29 @@ const Auth = (() => {
       reset: email => auth.sendPasswordResetEmail(a, email),
       signOut: () => auth.signOut(a),
       load: async uid => { const snap = await fs.getDoc(fs.doc(db, 'users', uid)); return snap.exists() ? snap.data() : null; },
-      save: (uid, doc) => fs.setDoc(fs.doc(db, 'users', uid), doc, { merge: true })
+      save: (uid, doc) => fs.setDoc(fs.doc(db, 'users', uid), doc, { merge: true }),
+      watchWorkshops: (receive, fail) => fs.onSnapshot(fs.collection(db, 'workshops'), snapshot => {
+        receive(Object.fromEntries(snapshot.docs.map(doc => [doc.id, doc.data()])));
+      }, fail),
+      reserveWorkshop: async (id, attendee) => {
+        const member = a.currentUser;
+        if (!member) throw Object.assign(new Error('Please log in to reserve a seat.'), { code:'workshop/sign-in' });
+        const workshop = fs.doc(db, 'workshops', id);
+        const registration = fs.doc(workshop, 'registrations', member.uid);
+        return fs.runTransaction(db, async transaction => {
+          const booking = await transaction.get(registration);
+          const snapshot = await transaction.get(workshop);
+          if (!snapshot.exists()) throw Object.assign(new Error('Registration is not open for this session.'), { code:'workshop/closed' });
+          const session = snapshot.data();
+          if (booking.exists()) return { ...session, id, alreadyRegistered:true };
+          if (!session.open) throw Object.assign(new Error('Registration is closed for this session.'), { code:'workshop/closed' });
+          if (!Number.isInteger(session.taken) || !Number.isInteger(session.seats) || session.taken < 0 || session.taken >= session.seats)
+            throw Object.assign(new Error('This session is fully booked.'), { code:'workshop/full' });
+          transaction.set(registration, { uid:member.uid, name:attendee.name, email:attendee.email, createdAt:fs.serverTimestamp() });
+          transaction.update(workshop, { taken:session.taken + 1 });
+          return { ...session, id, taken:session.taken + 1, alreadyRegistered:false };
+        });
+      }
     };
   }
 
@@ -855,6 +877,8 @@ const Auth = (() => {
     signIn: (email, pw) => need().signIn(email, pw),
     reset: email => need().reset(email),
     signOut: () => need().signOut(),
+    watchWorkshops: (receive, fail) => need().watchWorkshops(receive, fail),
+    reserveWorkshop: (id, attendee) => need().reserveWorkshop(id, attendee),
     /* tests install a stand-in with the same shape as the Firebase adapter */
     _install(fake){ impl = fake; start(); }
   };
@@ -1639,7 +1663,7 @@ function renderExam(){
           <p>You needed ${need} of ${total} to pass. Put the name you want printed on the certificate.</p>
           <div class="form-row">
             <label for="certName">Name on certificate</label>
-            <input class="input" id="certName" type="text" autocomplete="name" placeholder="Adaeze Nwachukwu">
+            <input class="input" id="certName" type="text" autocomplete="name" placeholder="Claire Bennett">
             <span class="err"><svg class="ic" aria-hidden="true"><use href="#i-warning-circle"/></svg><span>Enter the name to print</span></span>
           </div>
           <button class="btn btn-lg" id="certGo">Generate certificate</button>
@@ -1771,12 +1795,67 @@ $('#prNext').addEventListener('click', () => {
 /* =========================================================
    WORKSHOPS
    ========================================================= */
+const WorkshopBookings = (() => {
+  const preview = ['localhost','127.0.0.1','[::1]'].includes(location.hostname) || location.protocol === 'file:';
+  let summaries = {}, started = false, attached = false, loaded = false, failed = false;
+  const listeners = new Set();
+  const emit = () => listeners.forEach(fn => fn());
+  function receive(data){ summaries = data; loaded = true; failed = false; emit(); }
+  function fail(){ loaded = true; failed = true; emit(); }
+  function attach(){
+    if (attached || !Auth.settled) return;
+    try { Auth.watchWorkshops(receive, fail); attached = true; }
+    catch (err) { fail(); }
+  }
+  return {
+    preview,
+    get loaded(){ return loaded; },
+    get failed(){ return failed; },
+    onChange: fn => listeners.add(fn),
+    start(){
+      if (started) return;
+      started = true;
+      if (preview){
+        const events = new EventSource('/__preview/workshops/events');
+        events.onmessage = event => { try { receive(JSON.parse(event.data)); } catch (err) { fail(); } };
+        events.onerror = fail;
+        window.addEventListener('pagehide', () => events.close(), { once:true });
+        window.addEventListener('pageshow', event => { if (event.persisted) location.reload(); });
+      } else { Auth.onChange(attach); attach(); }
+    },
+    session(id){
+      const s = summaries[id];
+      return !failed && s && Number.isInteger(s.seats) && s.seats > 0 && Number.isInteger(s.taken) && s.taken >= 0 && s.taken <= s.seats ? s : null;
+    },
+    async reserve(id, attendee){
+      let result;
+      if (preview){
+        const response = await fetch('/__preview/workshops/register', {
+          method:'POST', headers:{ 'Content-Type':'application/json' }, body:JSON.stringify({ id, ...attendee })
+        });
+        result = await response.json();
+        if (!response.ok) throw Object.assign(new Error(result.message), { code:result.code });
+      } else { result = await Auth.reserveWorkshop(id, attendee); }
+      /* A newer shared update may arrive before this booking's response. */
+      if (!summaries[id] || result.taken > summaries[id].taken) summaries[id] = result;
+      emit();
+      return result;
+    }
+  };
+})();
+
+let workshopSubmitting = false;
 function renderSessions(){
+  WorkshopBookings.start();
   $('#agenda').innerHTML = SESSIONS.map((s, i) => {
-    const left = s.seats - s.taken;
+    const current = WorkshopBookings.session(s.id);
+    const left = current ? current.seats - current.taken : null;
     const status = s.done
       ? `<span class="s-done">Session complete</span>`
-      : `<span class="s-spots num">${left} seats left</span><span class="meta">of ${s.seats}</span>`;
+      : !WorkshopBookings.loaded ? '<span class="meta">Checking availability…</span>'
+      : !current ? '<span class="meta">Availability unavailable</span>'
+      : !current.open ? '<span class="s-done">Registration closed</span>'
+      : `<span class="s-spots num">${left === 0 ? 'Fully booked' : `${left} ${left === 1 ? 'seat' : 'seats'} left`}</span><span class="meta">of ${current.seats}</span>`;
     return `<div class="session reveal${s.done ? ' is-done' : ''}" style="--i:${i}">
       <div class="s-date"><span class="m">${esc(s.month)}</span><span class="d num">${esc(s.day)}</span></div>
       <div class="s-main">
@@ -1790,25 +1869,60 @@ function renderSessions(){
     </div>`;
   }).join('');
 
-  /* a finished session cannot be registered for */
+  /* Keep a visitor's selection while another registration updates availability. */
   const sel = $('#wsSession');
+  const selected = sel.value;
+  const available = SESSIONS.filter(s => {
+    const current = WorkshopBookings.session(s.id);
+    return !s.done && current && current.open && current.taken < current.seats;
+  });
   sel.innerHTML = '<option value="">Choose a session</option>' +
-    SESSIONS.filter(s => !s.done)
-      .map(s => `<option value="${esc(s.title)}">${esc(s.title)} · ${esc(s.month)} ${esc(s.day)}</option>`).join('');
+    available.map(s => `<option value="${esc(s.id)}">${esc(s.title)} · ${esc(s.month)} ${esc(s.day)}</option>`).join('');
+  if (available.some(s => s.id === selected)) sel.value = selected;
+  $('#wsSubmit').disabled = workshopSubmitting || available.length === 0;
+  const note = $('#wsNote');
+  note.hidden = !WorkshopBookings.preview && !!Auth.user;
+  note.innerHTML = WorkshopBookings.preview
+    ? 'Local preview: test bookings only. No emails are sent.'
+    : 'A free Profyn account is required to reserve a seat. <a class="link-arrow" href="/login/" data-go="login">Log in</a>';
   observeReveals($('#page-workshops'));
 }
 
-$('#wsForm').addEventListener('submit', e => {
+WorkshopBookings.onChange(() => { if (currentPage === 'workshops') renderSessions(); });
+Auth.onChange(() => { if (currentPage === 'workshops') renderSessions(); });
+
+$('#wsForm').addEventListener('submit', async e => {
   e.preventDefault();
+  if (workshopSubmitting) return;
   const name = $('#wsName'), email = $('#wsEmail'), session = $('#wsSession');
+  const error = $('#wsError');
+  error.hidden = true;
   if (!checkForm([[name,'text'], [email,'email'], [session,'text']])) return;
-  const chosen = session.value;
+  const chosen = SESSIONS.find(s => s.id === session.value && !s.done);
+  if (!chosen) return;
+  if (!WorkshopBookings.preview && !Auth.user){
+    error.textContent = 'Please log in to your free Profyn account before reserving a seat.';
+    error.hidden = false;
+    return;
+  }
+  if (name.value.trim().length > 120 || email.value.trim().length > 254){
+    error.textContent = 'Please use a name under 120 characters and an email under 254 characters.';
+    error.hidden = false;
+    return;
+  }
+  workshopSubmitting = true;
   const restore = busy($('#wsSubmit'), 'Reserving');
-  setTimeout(() => {
-    restore();
+  try {
+    const result = await WorkshopBookings.reserve(chosen.id, { name:name.value.trim(), email:email.value.trim().toLowerCase() });
     clearForm($('#wsForm'));
-    toast('Seat reserved', `We'll email the Zoom link for ${chosen} an hour before it starts.`);
-  }, 900);
+    toast(result.alreadyRegistered ? 'Already registered' : WorkshopBookings.preview ? 'Test seat reserved' : 'Seat reserved',
+      result.alreadyRegistered ? `You already have a seat for ${chosen.title}.`
+      : WorkshopBookings.preview ? `Your test booking for ${chosen.title} was saved locally. No email will be sent.`
+      : `Your registration for ${chosen.title} has been saved.`);
+  } catch (err) {
+    error.textContent = err.code && err.code.startsWith('workshop/') ? err.message : 'We could not save your registration. Please try again; no seat has been confirmed.';
+    error.hidden = false;
+  } finally { workshopSubmitting = false; restore(); renderSessions(); }
 });
 
 /* =========================================================

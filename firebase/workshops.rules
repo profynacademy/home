@@ -1,0 +1,33 @@
+// Merge this match block inside the existing /databases/{database}/documents
+// block. Preserve the project's existing account/progress rules.
+match /workshops/{workshopId} {
+  allow read: if true;
+  allow create, delete: if false;
+  allow update: if request.auth != null
+    && resource.data.open == true
+    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['taken'])
+    && request.resource.data.taken is int
+    && request.resource.data.taken == resource.data.taken + 1
+    && request.resource.data.taken <= resource.data.seats
+    && !exists(/databases/$(database)/documents/workshops/$(workshopId)/registrations/$(request.auth.uid))
+    && getAfter(/databases/$(database)/documents/workshops/$(workshopId)/registrations/$(request.auth.uid)).data.uid == request.auth.uid
+    && getAfter(/databases/$(database)/documents/workshops/$(workshopId)/registrations/$(request.auth.uid)).data.createdAt == request.time;
+
+  match /registrations/{uid} {
+    allow get: if request.auth != null && request.auth.uid == uid;
+    allow list, update, delete: if false;
+    allow create: if request.auth != null && request.auth.uid == uid
+      && request.resource.data.keys().hasOnly(['uid', 'name', 'email', 'createdAt'])
+      && request.resource.data.uid == uid
+      && request.resource.data.name is string
+      && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 120
+      && request.resource.data.email is string
+      && request.resource.data.email.size() > 3 && request.resource.data.email.size() <= 254
+      && request.resource.data.createdAt == request.time
+      && get(/databases/$(database)/documents/workshops/$(workshopId)).data.open == true
+      && getAfter(/databases/$(database)/documents/workshops/$(workshopId)).data.taken
+        == get(/databases/$(database)/documents/workshops/$(workshopId)).data.taken + 1
+      && getAfter(/databases/$(database)/documents/workshops/$(workshopId)).data.taken
+        <= get(/databases/$(database)/documents/workshops/$(workshopId)).data.seats;
+  }
+}
