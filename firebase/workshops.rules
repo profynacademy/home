@@ -1,9 +1,38 @@
 // Merge this match block inside the existing /databases/{database}/documents
 // block. Preserve the project's existing account/progress rules.
 match /workshops/{workshopId} {
+  // Public summary: title (1-200 chars), seats (1-100000), taken (0-seats),
+  // open (boolean). Only administrators create summaries or change capacity.
+  // Private registration: uid, name (1-120), email (4-254), createdAt.
+  function validWorkshop(data) {
+    return data.keys().hasAll(['title', 'seats', 'taken', 'open'])
+      && data.keys().hasOnly(['title', 'seats', 'taken', 'open'])
+      && data.title is string && data.title.size() > 0 && data.title.size() <= 200
+      && data.seats is int && data.seats > 0 && data.seats <= 100000
+      && data.taken is int && data.taken >= 0 && data.taken <= data.seats
+      && data.open is bool;
+  }
+
+  function ownsRegistration(uid) {
+    return request.auth != null && request.auth.uid == uid;
+  }
+
+  function validRegistration(data, uid) {
+    return data.keys().hasAll(['uid', 'name', 'email', 'createdAt'])
+      && data.keys().hasOnly(['uid', 'name', 'email', 'createdAt'])
+      && data.uid is string && data.uid == uid && data.uid.size() <= 128
+      && data.name is string && data.name.size() > 0 && data.name.size() <= 120
+      && data.email is string && data.email.size() > 3 && data.email.size() <= 254
+      && data.email.matches('^[^\\s@]+@[^\\s@]+[.][^\\s@]{2,}$')
+      && data.createdAt is timestamp && data.createdAt == request.time;
+  }
+
+  // Availability is intentionally public; this document contains no attendee data.
   allow read: if true;
   allow create, delete: if false;
   allow update: if request.auth != null
+    && validWorkshop(resource.data)
+    && validWorkshop(request.resource.data)
     && resource.data.open == true
     && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['taken'])
     && request.resource.data.taken is int
@@ -14,16 +43,12 @@ match /workshops/{workshopId} {
     && getAfter(/databases/$(database)/documents/workshops/$(workshopId)/registrations/$(request.auth.uid)).data.createdAt == request.time;
 
   match /registrations/{uid} {
-    allow get: if request.auth != null && request.auth.uid == uid;
+    allow get: if ownsRegistration(uid);
     allow list, update, delete: if false;
-    allow create: if request.auth != null && request.auth.uid == uid
-      && request.resource.data.keys().hasOnly(['uid', 'name', 'email', 'createdAt'])
-      && request.resource.data.uid == uid
-      && request.resource.data.name is string
-      && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 120
-      && request.resource.data.email is string
-      && request.resource.data.email.size() > 3 && request.resource.data.email.size() <= 254
-      && request.resource.data.createdAt == request.time
+    allow create: if ownsRegistration(uid)
+      && validRegistration(request.resource.data, uid)
+      && validWorkshop(get(/databases/$(database)/documents/workshops/$(workshopId)).data)
+      && validWorkshop(getAfter(/databases/$(database)/documents/workshops/$(workshopId)).data)
       && get(/databases/$(database)/documents/workshops/$(workshopId)).data.open == true
       && getAfter(/databases/$(database)/documents/workshops/$(workshopId)).data.taken
         == get(/databases/$(database)/documents/workshops/$(workshopId)).data.taken + 1
