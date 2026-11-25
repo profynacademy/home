@@ -1,5 +1,23 @@
 [
-  { "id":"property-hacking-2026-09-21", "title":"Property Hacking 101", "seats":500, "taken":500, "open":false },
-  { "id":"tax-saving-2026-10-05", "title":"Tax Saving Secrets", "seats":500, "taken":477, "open":false },
-  { "id":"money-glow-up-2026-11-24", "title":"The Money Glow Up", "seats":500, "taken":483, "open":true }
+  {
+    "id": "money-glow-up-2026-11-24",
+    "title": "The Money Glow Up",
+    "seats": 500,
+    "taken": 484,
+    "open": false
+  },
+  {
+    "id": "money-moves-2026-12-28",
+    "title": "Money Moves for the New Year",
+    "seats": 500,
+    "taken": 446,
+    "open": true
+  },
+  {
+    "id": "credit-careers-2027-02-21",
+    "title": "Credit, Careers & Your Next Move",
+    "seats": 500,
+    "taken": 324,
+    "open": true
+  }
 ]

@@ -381,32 +381,65 @@ const QUESTIONS = {
 
 /* Sessions run on alternating Sundays. Update these as they pass. */
 const SESSIONS = [
-  { id:"property-hacking-2026-09-21", title:"Property Hacking 101", month:"Sep", day:"21", year:2026, time:"6:00 to 8:00 PM ET", taken:500, seats:500, host:"Marcus Vane", done:true },
-  { id:"tax-saving-2026-10-05", title:"Tax Saving Secrets", month:"Oct", day:"05", year:2026, time:"6:00 to 8:00 PM ET", taken:477, seats:500, host:"Priya Raghunathan", done:true },
-  { id:"money-glow-up-2026-11-24", title:"The Money Glow Up", month:"Nov", day:"24", year:2026, time:"6:00 to 8:00 PM ET", taken:483, seats:500, host:"Elena Rossi" }
+  {
+    "id": "money-glow-up-2026-11-24",
+    "title": "The Money Glow Up",
+    "month": "Nov",
+    "day": "24",
+    "year": 2026,
+    "time": "6:00 to 8:00 PM ET",
+    "taken": 484,
+    "seats": 500,
+    "host": "Elena Rossi",
+    "done": true
+  },
+  {
+    "id": "money-moves-2026-12-28",
+    "title": "Money Moves for the New Year",
+    "month": "Dec",
+    "day": "28",
+    "year": 2026,
+    "time": "6:00 to 8:00 PM ET",
+    "taken": 446,
+    "seats": 500,
+    "host": "Rohan Mehta",
+    "hostPending": true
+  },
+  {
+    "id": "credit-careers-2027-02-21",
+    "title": "Credit, Careers & Your Next Move",
+    "month": "Feb",
+    "day": "21",
+    "year": 2027,
+    "time": "6:00 to 8:00 PM ET",
+    "taken": 324,
+    "seats": 500,
+    "host": "Oliver Bennett",
+    "hostPending": true
+  }
 ];
 
 const EPISODES = [
-  { n:1,  t:"The Money Glow Up", d:"Where your money goes before you notice, and the two habits that change the shape of a year.", plays:420, url:"https://drive.google.com/file/d/1zrmNTJsk55GExUF2cmjPOiHieEuNfjPB/view?usp=sharing" },
-  { n:2,  t:"Secure The Bag", d:"Account structures, fee traps and why your transfer takes three days to land.", plays:455, url:"https://drive.google.com/file/d/1nC2RzqMv1VtE2-rEz39qv3TAjAbNYtX-/view?usp=sharing" },
-  { n:3,  t:"Credit Score Hacking", d:"What moves a score, in what order, and how long each change takes to appear.", plays:512, url:"https://drive.google.com/file/d/144fpHjhMDkxmKlaHp7PhKR0Q1BhN21Up/view?usp=sharing" },
-  { n:4,  t:"Buying Your First Place", d:"Closing costs, escrow and the running costs nobody quotes you up front.", plays:646, url:"https://drive.google.com/file/d/1mqjwZRzgNwzbtuVwX0qCwbXgUR2HQsZj/view?usp=sharing" },
-  { n:5,  t:"Tax-Free Growth", d:"Roth accounts, HSAs and the order to fill them in when money is tight.", plays:609, url:"https://drive.google.com/file/d/1P_lIQ8fY-Q5DVLJYcpWRLvNchwWhW6We/view?usp=sharing" },
-  { n:6,  t:"Reinvesting Well", d:"Dividend reinvestment, drip-feeding and why timing the market rarely pays.", plays:609, url:"https://drive.google.com/file/d/15UtR4Y8Yk2wlfEwRoReR5MKnSUUF7tRz/view?usp=sharing" },
-  { n:7,  t:"Wills and Trusts", d:"What probate actually costs a family, and the paperwork that avoids it.", plays:508, url:"https://drive.google.com/file/d/1qIFv3rGb4uBthGp1rYng9vAfgLMqLSEl/view?usp=sharing" },
-  { n:8,  t:"Reading the Market", d:"Index funds, valuation basics and how to ignore most financial news.", plays:687, url:"https://drive.google.com/file/d/15yQQM3ncNAurNl-0t9zZj3qTSDEwNxaH/view?usp=sharing" },
-  { n:9,  t:"Banking Across Borders", d:"Multi-currency accounts, FX spreads and the reporting duties people forget.", plays:558, url:"https://drive.google.com/file/d/1G8u4kHV7_eYOuqWmt2Y4OsDsOJdwbb46/view?usp=sharing" },
-  { n:10, t:"Money Mindset", d:"Why you sell at the bottom, and the rules that stop you doing it again.", plays:471, url:"https://drive.google.com/file/d/1xSuKFR-PhGSOSBUpm12UaM7mCCzl20Np/view?usp=sharing" },
-  { n:11, t:"Side Income That Lasts", d:"Which income streams are genuinely passive and which are just a second job.", plays:533, url:"https://drive.google.com/file/d/107F66rV__YNg2p0z4H8L3aQjK2zo6REz/view?usp=sharing" },
-  { n:12, t:"Options Without the Hype", d:"Covered calls, protective puts and where the risk actually sits.", plays:492, url:"https://drive.google.com/file/d/1IrEuICHNhGGGMfzcpKEDWKh8-Viz8ZMT/view?usp=sharing" },
-  { n:13, t:"Bonds and Duration", d:"Why bond prices fall when rates rise, explained without the maths.", plays:401, url:"https://drive.google.com/file/d/1Ulqa6xJalxfcfGg0IjUBrOc5IBno9nDM/view?usp=sharing" },
-  { n:14, t:"Gold and Commodities", d:"Storage costs, contango, and why gold is a poor inflation hedge.", plays:463, url:"https://drive.google.com/file/d/1W6SJLPM_qTwlCUodWTpEl8BTcLB58EJd/view?usp=sharing" },
-  { n:15, t:"Crypto, Told Straight", d:"Custody, stablecoin reserves and the failure modes that keep repeating.", plays:702, url:"https://drive.google.com/file/d/1Nk3-WO289BXx0n3MGH4Ww-AUwtRgHYj3/view?usp=sharing" },
-  { n:16, t:"How Rates Move Everything", d:"Central banks, credit cycles and reading the environment you invest into.", plays:388, url:"https://drive.google.com/file/d/1rGFe1fcYdq5loyceVIglf_l-g5RTjpwq/view?usp=sharing" },
-  { n:17, t:"Inside Private Equity", d:"Fund structures, carry and the J-curve, for people who keep hearing the words.", plays:517, url:"https://drive.google.com/file/d/1VVX0CuDzVg1n0NisCLQg-mQ9WqMSyD1i/view?usp=sharing" },
-  { n:18, t:"Why Retail FX Loses", d:"Leverage, spreads and the arithmetic behind most closed accounts.", plays:449, url:"https://drive.google.com/file/d/1xChtorelsIiT29o6HLrPPh7fQYMVeMQ7/view?usp=sharing" },
-  { n:19, t:"Giving Well", d:"Donor-advised funds, appreciated stock and getting more to the cause.", plays:362, url:"https://drive.google.com/file/d/1LBZadQJ-f5uY5zAh4QslOki8Xjo5v5cd/view?usp=sharing" },
-  { n:20, t:"Models That Don't Break", d:"Scenario tables, sanity checks and auditing your own spreadsheet.", plays:594, url:"https://drive.google.com/file/d/1FJUdQ6Ob5htfPZ5OlVIAxQ1oC9egZqOo/view?usp=sharing" }
+  { n:1,  t:"The Money Glow Up", d:"Where your money goes before you notice, and the two habits that change the shape of a year.", url:"https://drive.google.com/file/d/1zrmNTJsk55GExUF2cmjPOiHieEuNfjPB/view?usp=sharing" },
+  { n:2,  t:"Secure The Bag", d:"Account structures, fee traps and why your transfer takes three days to land.", url:"https://drive.google.com/file/d/1nC2RzqMv1VtE2-rEz39qv3TAjAbNYtX-/view?usp=sharing" },
+  { n:3,  t:"Credit Score Hacking", d:"What moves a score, in what order, and how long each change takes to appear.", url:"https://drive.google.com/file/d/144fpHjhMDkxmKlaHp7PhKR0Q1BhN21Up/view?usp=sharing" },
+  { n:4,  t:"Buying Your First Place", d:"Closing costs, escrow and the running costs nobody quotes you up front.", url:"https://drive.google.com/file/d/1mqjwZRzgNwzbtuVwX0qCwbXgUR2HQsZj/view?usp=sharing" },
+  { n:5,  t:"Tax-Free Growth", d:"Roth accounts, HSAs and the order to fill them in when money is tight.", url:"https://drive.google.com/file/d/1P_lIQ8fY-Q5DVLJYcpWRLvNchwWhW6We/view?usp=sharing" },
+  { n:6,  t:"Reinvesting Well", d:"Dividend reinvestment, drip-feeding and why timing the market rarely pays.", url:"https://drive.google.com/file/d/15UtR4Y8Yk2wlfEwRoReR5MKnSUUF7tRz/view?usp=sharing" },
+  { n:7,  t:"Wills and Trusts", d:"What probate actually costs a family, and the paperwork that avoids it.", url:"https://drive.google.com/file/d/1qIFv3rGb4uBthGp1rYng9vAfgLMqLSEl/view?usp=sharing" },
+  { n:8,  t:"Reading the Market", d:"Index funds, valuation basics and how to ignore most financial news.", url:"https://drive.google.com/file/d/15yQQM3ncNAurNl-0t9zZj3qTSDEwNxaH/view?usp=sharing" },
+  { n:9,  t:"Banking Across Borders", d:"Multi-currency accounts, FX spreads and the reporting duties people forget.", url:"https://drive.google.com/file/d/1G8u4kHV7_eYOuqWmt2Y4OsDsOJdwbb46/view?usp=sharing" },
+  { n:10, t:"Money Mindset", d:"Why you sell at the bottom, and the rules that stop you doing it again.", url:"https://drive.google.com/file/d/1xSuKFR-PhGSOSBUpm12UaM7mCCzl20Np/view?usp=sharing" },
+  { n:11, t:"Side Income That Lasts", d:"Which income streams are genuinely passive and which are just a second job.", url:"https://drive.google.com/file/d/107F66rV__YNg2p0z4H8L3aQjK2zo6REz/view?usp=sharing" },
+  { n:12, t:"Options Without the Hype", d:"Covered calls, protective puts and where the risk actually sits.", url:"https://drive.google.com/file/d/1IrEuICHNhGGGMfzcpKEDWKh8-Viz8ZMT/view?usp=sharing" },
+  { n:13, t:"Bonds and Duration", d:"Why bond prices fall when rates rise, explained without the maths.", url:"https://drive.google.com/file/d/1Ulqa6xJalxfcfGg0IjUBrOc5IBno9nDM/view?usp=sharing" },
+  { n:14, t:"Gold and Commodities", d:"Storage costs, contango, and why gold is a poor inflation hedge.", url:"https://drive.google.com/file/d/1W6SJLPM_qTwlCUodWTpEl8BTcLB58EJd/view?usp=sharing" },
+  { n:15, t:"Crypto, Told Straight", d:"Custody, stablecoin reserves and the failure modes that keep repeating.", url:"https://drive.google.com/file/d/1Nk3-WO289BXx0n3MGH4Ww-AUwtRgHYj3/view?usp=sharing" },
+  { n:16, t:"How Rates Move Everything", d:"Central banks, credit cycles and reading the environment you invest into.", url:"https://drive.google.com/file/d/1rGFe1fcYdq5loyceVIglf_l-g5RTjpwq/view?usp=sharing" },
+  { n:17, t:"Inside Private Equity", d:"Fund structures, carry and the J-curve, for people who keep hearing the words.", url:"https://drive.google.com/file/d/1VVX0CuDzVg1n0NisCLQg-mQ9WqMSyD1i/view?usp=sharing" },
+  { n:18, t:"Why Retail FX Loses", d:"Leverage, spreads and the arithmetic behind most closed accounts.", url:"https://drive.google.com/file/d/1xChtorelsIiT29o6HLrPPh7fQYMVeMQ7/view?usp=sharing" },
+  { n:19, t:"Giving Well", d:"Donor-advised funds, appreciated stock and getting more to the cause.", url:"https://drive.google.com/file/d/1LBZadQJ-f5uY5zAh4QslOki8Xjo5v5cd/view?usp=sharing" },
+  { n:20, t:"Models That Don't Break", d:"Scenario tables, sanity checks and auditing your own spreadsheet.", url:"https://drive.google.com/file/d/1FJUdQ6Ob5htfPZ5OlVIAxQ1oC9egZqOo/view?usp=sharing" }
 ];
 
 /* =========================================================
@@ -1849,20 +1882,19 @@ function renderSessions(){
   WorkshopBookings.start();
   $('#agenda').innerHTML = SESSIONS.map((s, i) => {
     const current = WorkshopBookings.session(s.id);
-    const left = current ? current.seats - current.taken : null;
+    const count = current || s;
+    const filled = `<span class="meta">${count.taken}/${count.seats} seats filled</span>`;
     const status = s.done
-      ? `<span class="s-done">Session complete</span>`
-      : !WorkshopBookings.loaded ? '<span class="meta">Checking availability…</span>'
-      : !current ? '<span class="meta">Availability unavailable</span>'
-      : !current.open ? '<span class="s-done">Registration closed</span>'
-      : `<span class="s-spots num">${left === 0 ? 'Fully booked' : `${left} ${left === 1 ? 'seat' : 'seats'} left`}</span><span class="meta">of ${current.seats}</span>`;
+      ? `<span class="s-done">Session complete</span>${filled}`
+      : WorkshopBookings.failed ? '<span class="meta">Availability unavailable</span>'
+      : `<span class="s-spots num">${Math.max(0, count.seats - count.taken)} seats left</span>${filled}${!current || !current.open ? '<span class="meta">Registration opens soon</span>' : ''}`;
     return `<div class="session reveal${s.done ? ' is-done' : ''}" style="--i:${i}">
-      <div class="s-date"><span class="m">${esc(s.month)}</span><span class="d num">${esc(s.day)}</span></div>
+      <div class="s-date" aria-label="${esc(s.month)} ${esc(s.day)}, ${s.year}"><span class="m">${esc(s.month)}</span><span class="d num">${esc(s.day)}</span></div>
       <div class="s-main">
         <h3>${esc(s.title)}</h3>
         <div class="s-meta">
           <span class="meta">${esc(s.time)}</span>
-          <span class="meta">Led by ${esc(s.host)}</span>
+          <span class="meta">${s.hostPending ? 'Guest to be confirmed · ' : 'Led by '}${esc(s.host)}</span>
         </div>
       </div>
       <div class="s-right">${status}</div>
@@ -1929,14 +1961,12 @@ $('#wsForm').addEventListener('submit', async e => {
    LISTEN
    ========================================================= */
 function renderEpisodes(){
-  const latest = Math.max(...EPISODES.map(e => e.n));
   $('#episodeList').innerHTML = [...EPISODES].reverse().map((ep, i) => `
     <article class="ep reveal" style="--i:${Math.min(i, 6)}">
       <span class="ep-n num">${String(ep.n).padStart(2,'0')}</span>
       <div>
-        <h3>${esc(ep.t)}${ep.n === latest ? ' <span class="tag">Newest</span>' : ''}</h3>
+        <h3>${esc(ep.t)}</h3>
         <p>${esc(ep.d)}</p>
-        <span class="meta"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg> ${ep.plays} plays</span>
       </div>
       <a class="btn btn-2 btn-sm" href="${ep.url}" target="_blank" rel="noopener noreferrer">
         Listen<svg class="ic" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
