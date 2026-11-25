@@ -1,37 +1,31 @@
-# Shared workshop bookings
+# Open the December and February workshops
 
-Production uses the existing Firebase project, `profyn-c2c0f`. A signed-in
-Profyn member can reserve one seat per session. The registration and seat
-counter are committed together in a Firestore transaction. Public listeners
-receive only workshop summaries; attendee records are private to their owner
-and project administrators.
+The website lists both upcoming dates. Real reservations require their matching Firebase records. Public visitors cannot create or reset these records; the project owner must do this once.
 
-## Before publishing this feature
+## One-time setup in Firebase
 
-1. Review the project's current Firestore rules. Merge the `workshops.rules`
-   match block into its existing `/databases/{database}/documents` block;
-   preserve existing rules for accounts and progress. Ensure no broader rule
-   grants public writes or public reads of registration subcollections.
-2. In Firestore, create one `workshops/{id}` document for each item in
-   `workshops.seed.json`. Store `title` as a string, `seats` and `taken` as
-   integers, and `open` as a boolean; the `id` is the document ID. The initial
-   counts copy the website's existing figures. Confirm these with the actual
-   registration list before opening booking. Do not overwrite an existing
-   workshop counter or reset it during subsequent deployments.
-3. Use two test member accounts to confirm that a registration saves under
-   `workshops/{id}/registrations/{uid}` and reduces the shared remaining-seat
-   count by one. A repeat booking by the same member must not consume a seat.
-   Failed writes and full or closed workshops must not accept bookings.
-4. Publish the website only after the user approves the local preview and
-   the Firebase preparation is complete. No Firebase changes have been made
-   by preparing these source files.
+1. Open https://console.firebase.google.com/project/profyn-c2c0f/firestore and sign in as the account that owns Profyn's Firebase project.
+2. Select **Firestore Database → Data → workshops** in the `(default)` database.
+3. Click **Add document** and enter the exact document ID from the table below. Add the four fields with the indicated types. Do not include an `id` field inside the document.
+4. If a document already exists, preserve its live `taken` counter. Check its title, capacity and `open` status instead of recreating it.
 
-The local preview uses a separate server-side test store under the chat's
-`work/` directory, with updates streamed to all local preview tabs. It never
-writes workshop registrations to production Firebase. No email delivery
-service is configured by this change; administrators can use saved attendee
-details for the existing workshop communication process.
+| Document ID | title (string) | seats (number/integer) | taken (number/integer) | open (boolean) |
+| --- | --- | --- | --- | --- |
+| `money-moves-2026-12-28` | Money Moves for the New Year | 500 | 446 | true |
+| `credit-careers-2027-02-21` | Credit, Careers & Your Next Move | 500 | 324 | true |
 
-References: [Firestore transactions](https://firebase.google.com/docs/firestore/manage-data/transactions),
-[atomic-write security rules](https://firebase.google.com/docs/firestore/security/rules-conditions),
-and [realtime listeners](https://firebase.google.com/docs/firestore/query-data/listen).
+These starting counts were supplied by the site owner. Creating records does not create historical attendee registrations.
+
+5. Open the existing `money-glow-up-2026-11-24` document and set `open` to **false**. Preserve existing attendee records. The website displays the owner's final 484/500 attendance figure for that completed session.
+6. Reload https://profyn.org/workshops/. Both dates should be in the dropdown. A free Profyn account is required to reserve.
+7. Make one authorized test booking. Confirm that a private registration appears under `workshops/{id}/registrations/{uid}` and the shared taken count increases by exactly one. Trying the same account again must not consume another seat.
+
+## Existing security rules
+
+The current `firebase/firestore.rules` permits public summary reads, and a signed-in member's own registration only when the same transaction increments the seat count by one. Public clients cannot create workshop summaries, change capacity or list attendees. Preserve these restrictions and the existing account/progress rules. Do not make the database publicly writable to enable these dates.
+
+## Local preview
+
+Local preview uses a separate server-side test store and never writes registrations to production. No workshop email service is configured by this feature.
+
+References: [Firestore console data management](https://firebase.google.com/docs/firestore/manage-data/add-data), [transactions](https://firebase.google.com/docs/firestore/manage-data/transactions), [atomic-write security rules](https://firebase.google.com/docs/firestore/security/rules-conditions).

@@ -402,8 +402,7 @@ const SESSIONS = [
     "time": "6:00 to 8:00 PM ET",
     "taken": 446,
     "seats": 500,
-    "host": "Rohan Mehta",
-    "hostPending": true
+    "host": "Caden Owens"
   },
   {
     "id": "credit-careers-2027-02-21",
@@ -414,8 +413,7 @@ const SESSIONS = [
     "time": "6:00 to 8:00 PM ET",
     "taken": 324,
     "seats": 500,
-    "host": "Oliver Bennett",
-    "hostPending": true
+    "host": "Rajesh Patel"
   }
 ];
 
@@ -1882,19 +1880,19 @@ function renderSessions(){
   WorkshopBookings.start();
   $('#agenda').innerHTML = SESSIONS.map((s, i) => {
     const current = WorkshopBookings.session(s.id);
-    const count = current || s;
+    const count = s.done ? s : (current || s);
     const filled = `<span class="meta">${count.taken}/${count.seats} seats filled</span>`;
     const status = s.done
       ? `<span class="s-done">Session complete</span>${filled}`
       : WorkshopBookings.failed ? '<span class="meta">Availability unavailable</span>'
-      : `<span class="s-spots num">${Math.max(0, count.seats - count.taken)} seats left</span>${filled}${!current || !current.open ? '<span class="meta">Registration opens soon</span>' : ''}`;
+      : `<span class="s-spots num">${Math.max(0, count.seats - count.taken)} seats left</span>${filled}`;
     return `<div class="session reveal${s.done ? ' is-done' : ''}" style="--i:${i}">
       <div class="s-date" aria-label="${esc(s.month)} ${esc(s.day)}, ${s.year}"><span class="m">${esc(s.month)}</span><span class="d num">${esc(s.day)}</span></div>
       <div class="s-main">
         <h3>${esc(s.title)}</h3>
         <div class="s-meta">
           <span class="meta">${esc(s.time)}</span>
-          <span class="meta">${s.hostPending ? 'Guest to be confirmed · ' : 'Led by '}${esc(s.host)}</span>
+          <span class="meta">Led by ${esc(s.host)}</span>
         </div>
       </div>
       <div class="s-right">${status}</div>
@@ -1904,14 +1902,20 @@ function renderSessions(){
   /* Keep a visitor's selection while another registration updates availability. */
   const sel = $('#wsSession');
   const selected = sel.value;
-  const available = SESSIONS.filter(s => {
+  const upcoming = SESSIONS.filter(s => !s.done);
+  const available = upcoming.filter(s => {
     const current = WorkshopBookings.session(s.id);
-    return !s.done && current && current.open && current.taken < current.seats;
+    return current && current.open && current.taken < current.seats;
   });
   sel.innerHTML = '<option value="">Choose a session</option>' +
-    available.map(s => `<option value="${esc(s.id)}">${esc(s.title)} · ${esc(s.month)} ${esc(s.day)}</option>`).join('');
-  if (available.some(s => s.id === selected)) sel.value = selected;
-  $('#wsSubmit').disabled = workshopSubmitting || available.length === 0;
+    upcoming.map(s => {
+      const current = WorkshopBookings.session(s.id);
+      const unavailable = current && (!current.open || current.taken >= current.seats);
+      return `<option value="${esc(s.id)}"${unavailable ? ' disabled' : ''}>${esc(s.title)} · ${esc(s.month)} ${esc(s.day)}, ${s.year}${unavailable ? (current.open ? ' · Fully booked' : ' · Closed') : ''}</option>`;
+    }).join('');
+  if (upcoming.some(s => s.id === selected)) sel.value = selected;
+  const canReserve = selected ? available.some(s => s.id === selected) : available.length > 0;
+  $('#wsSubmit').disabled = workshopSubmitting || !canReserve;
   const note = $('#wsNote');
   note.hidden = !WorkshopBookings.preview && !!Auth.user;
   note.innerHTML = WorkshopBookings.preview
@@ -1919,6 +1923,8 @@ function renderSessions(){
     : 'A free Profyn account is required to reserve a seat. <a class="link-arrow" href="/login/" data-go="login">Log in</a>';
   observeReveals($('#page-workshops'));
 }
+
+$('#wsSession').addEventListener('change', renderSessions);
 
 WorkshopBookings.onChange(() => { if (currentPage === 'workshops') renderSessions(); });
 Auth.onChange(() => { if (currentPage === 'workshops') renderSessions(); });
