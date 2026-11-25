@@ -418,26 +418,166 @@ const SESSIONS = [
 ];
 
 const EPISODES = [
-  { n:1,  t:"The Money Glow Up", d:"Where your money goes before you notice, and the two habits that change the shape of a year.", url:"https://drive.google.com/file/d/1zrmNTJsk55GExUF2cmjPOiHieEuNfjPB/view?usp=sharing" },
-  { n:2,  t:"Secure The Bag", d:"Account structures, fee traps and why your transfer takes three days to land.", url:"https://drive.google.com/file/d/1nC2RzqMv1VtE2-rEz39qv3TAjAbNYtX-/view?usp=sharing" },
-  { n:3,  t:"Credit Score Hacking", d:"What moves a score, in what order, and how long each change takes to appear.", url:"https://drive.google.com/file/d/144fpHjhMDkxmKlaHp7PhKR0Q1BhN21Up/view?usp=sharing" },
-  { n:4,  t:"Buying Your First Place", d:"Closing costs, escrow and the running costs nobody quotes you up front.", url:"https://drive.google.com/file/d/1mqjwZRzgNwzbtuVwX0qCwbXgUR2HQsZj/view?usp=sharing" },
-  { n:5,  t:"Tax-Free Growth", d:"Roth accounts, HSAs and the order to fill them in when money is tight.", url:"https://drive.google.com/file/d/1P_lIQ8fY-Q5DVLJYcpWRLvNchwWhW6We/view?usp=sharing" },
-  { n:6,  t:"Reinvesting Well", d:"Dividend reinvestment, drip-feeding and why timing the market rarely pays.", url:"https://drive.google.com/file/d/15UtR4Y8Yk2wlfEwRoReR5MKnSUUF7tRz/view?usp=sharing" },
-  { n:7,  t:"Wills and Trusts", d:"What probate actually costs a family, and the paperwork that avoids it.", url:"https://drive.google.com/file/d/1qIFv3rGb4uBthGp1rYng9vAfgLMqLSEl/view?usp=sharing" },
-  { n:8,  t:"Reading the Market", d:"Index funds, valuation basics and how to ignore most financial news.", url:"https://drive.google.com/file/d/15yQQM3ncNAurNl-0t9zZj3qTSDEwNxaH/view?usp=sharing" },
-  { n:9,  t:"Banking Across Borders", d:"Multi-currency accounts, FX spreads and the reporting duties people forget.", url:"https://drive.google.com/file/d/1G8u4kHV7_eYOuqWmt2Y4OsDsOJdwbb46/view?usp=sharing" },
-  { n:10, t:"Money Mindset", d:"Why you sell at the bottom, and the rules that stop you doing it again.", url:"https://drive.google.com/file/d/1xSuKFR-PhGSOSBUpm12UaM7mCCzl20Np/view?usp=sharing" },
-  { n:11, t:"Side Income That Lasts", d:"Which income streams are genuinely passive and which are just a second job.", url:"https://drive.google.com/file/d/107F66rV__YNg2p0z4H8L3aQjK2zo6REz/view?usp=sharing" },
-  { n:12, t:"Options Without the Hype", d:"Covered calls, protective puts and where the risk actually sits.", url:"https://drive.google.com/file/d/1IrEuICHNhGGGMfzcpKEDWKh8-Viz8ZMT/view?usp=sharing" },
-  { n:13, t:"Bonds and Duration", d:"Why bond prices fall when rates rise, explained without the maths.", url:"https://drive.google.com/file/d/1Ulqa6xJalxfcfGg0IjUBrOc5IBno9nDM/view?usp=sharing" },
-  { n:14, t:"Gold and Commodities", d:"Storage costs, contango, and why gold is a poor inflation hedge.", url:"https://drive.google.com/file/d/1W6SJLPM_qTwlCUodWTpEl8BTcLB58EJd/view?usp=sharing" },
-  { n:15, t:"Crypto, Told Straight", d:"Custody, stablecoin reserves and the failure modes that keep repeating.", url:"https://drive.google.com/file/d/1Nk3-WO289BXx0n3MGH4Ww-AUwtRgHYj3/view?usp=sharing" },
-  { n:16, t:"How Rates Move Everything", d:"Central banks, credit cycles and reading the environment you invest into.", url:"https://drive.google.com/file/d/1rGFe1fcYdq5loyceVIglf_l-g5RTjpwq/view?usp=sharing" },
-  { n:17, t:"Inside Private Equity", d:"Fund structures, carry and the J-curve, for people who keep hearing the words.", url:"https://drive.google.com/file/d/1VVX0CuDzVg1n0NisCLQg-mQ9WqMSyD1i/view?usp=sharing" },
-  { n:18, t:"Why Retail FX Loses", d:"Leverage, spreads and the arithmetic behind most closed accounts.", url:"https://drive.google.com/file/d/1xChtorelsIiT29o6HLrPPh7fQYMVeMQ7/view?usp=sharing" },
-  { n:19, t:"Giving Well", d:"Donor-advised funds, appreciated stock and getting more to the cause.", url:"https://drive.google.com/file/d/1LBZadQJ-f5uY5zAh4QslOki8Xjo5v5cd/view?usp=sharing" },
-  { n:20, t:"Models That Don't Break", d:"Scenario tables, sanity checks and auditing your own spreadsheet.", url:"https://drive.google.com/file/d/1FJUdQ6Ob5htfPZ5OlVIAxQ1oC9egZqOo/view?usp=sharing" }
+  {
+    "season": 1,
+    "n": 1,
+    "t": "Why starting at 18 changes everything",
+    "id": "1nkrukskvA76xzcrBwKv8O_mb0veOQZz4",
+    "size": 3729786,
+    "url": "/assets/audio/s01e01.m4a"
+  },
+  {
+    "season": 1,
+    "n": 2,
+    "t": "The credit card trap",
+    "id": "1VTrfXIpydIYhKb_926PwM3m_2LFOGzf7",
+    "size": 2802773,
+    "url": "/assets/audio/s01e02.m4a"
+  },
+  {
+    "season": 1,
+    "n": 3,
+    "t": "Was your degree worth it?",
+    "id": "1eVFpd7hHFL0w0AB6bMiQe58rhpXR60jM",
+    "size": 2728828,
+    "url": "/assets/audio/s01e03.m4a"
+  },
+  {
+    "season": 1,
+    "n": 4,
+    "t": "The $1,000 that changes everything",
+    "id": "1mBOJeNs8dM-ql4vdkCqWQzx6lkfW6CkF",
+    "size": 2972770,
+    "url": "/assets/audio/s01e04.m4a"
+  },
+  {
+    "season": 1,
+    "n": 5,
+    "t": "Lifestyle inflation: the silent wealth killer",
+    "id": "1ypMWGmgOPu-XZ5NeINrYdT6jgf10q8lD",
+    "size": 2897499,
+    "url": "/assets/audio/s01e05.m4a"
+  },
+  {
+    "season": 1,
+    "n": 6,
+    "t": "Ask for more",
+    "id": "1HQThzLXMvtqyQm0OOHehXKGKvaGzaUDK",
+    "size": 2844025,
+    "url": "/assets/audio/s01e06.m4a"
+  },
+  {
+    "season": 1,
+    "n": 7,
+    "t": "The “sure thing” that wasn’t",
+    "id": "1j-YXLvmhFLTBLu16574csN1bN0z7ws-o",
+    "size": 2907824,
+    "url": "/assets/audio/s01e07.m4a"
+  },
+  {
+    "season": 1,
+    "n": 8,
+    "t": "When helping hurts you",
+    "id": "10HfUSCJ4GqWyeJOtt2uIhgDsxOhzXlTg",
+    "size": 2693372,
+    "url": "/assets/audio/s01e08.m4a"
+  },
+  {
+    "season": 1,
+    "n": 9,
+    "t": "The two decisions that decide your wealth",
+    "id": "1Z4ql2BwxwIMt0DImdi21PHKnvqq1esXj",
+    "size": 2763326,
+    "url": "/assets/audio/s01e09.m4a"
+  },
+  {
+    "season": 2,
+    "n": 1,
+    "t": "The thing nobody explains until it’s too late",
+    "id": "15vGpvaeopR9zMireXxdyzaGHJg6Y-Nrt",
+    "size": 2821540,
+    "url": "/assets/audio/s02e01.m4a"
+  },
+  {
+    "season": 2,
+    "n": 2,
+    "t": "The boring thing that saves everything",
+    "id": "1-i2j_mUHpMAaPhesG_BSd5iMiinMXvY2",
+    "size": 2732501,
+    "url": "/assets/audio/s02e02.m4a"
+  },
+  {
+    "season": 2,
+    "n": 3,
+    "t": "The side hustle trap",
+    "id": "1-wv56TKa73Gzz6pXtiGMyK8ESrq9JlZO",
+    "size": 2786934,
+    "url": "/assets/audio/s02e03.m4a"
+  },
+  {
+    "season": 2,
+    "n": 4,
+    "t": "Building credit from zero",
+    "id": "1-ORfAAi5jg5x6dZSk3IiLoLqKy5B0Spv",
+    "size": 2780849,
+    "url": "/assets/audio/s02e04.m4a"
+  },
+  {
+    "season": 2,
+    "n": 5,
+    "t": "How wealthy people actually think",
+    "id": "1JfOjzAnR3c6JYK9-dTUcLZBY0tHTWJBK",
+    "size": 2749563,
+    "url": "/assets/audio/s02e05.m4a"
+  },
+  {
+    "season": 2,
+    "n": 6,
+    "t": "Free money you’re leaving on the table",
+    "id": "19wh5_8-RbHaOUn6kG_5yM-WEpEI4cLKP",
+    "size": 2877733,
+    "url": "/assets/audio/s02e06.m4a"
+  },
+  {
+    "season": 2,
+    "n": 7,
+    "t": "Real estate for our generation",
+    "id": "1oJJ9AtSX-oSxrq4sBBWCqLHy1Ruli9xc",
+    "size": 2914892,
+    "url": "/assets/audio/s02e07.m4a"
+  },
+  {
+    "season": 2,
+    "n": 8,
+    "t": "Money & relationships",
+    "id": "1JvCKO_FLs9tD53ufqymki2rdG9jILDsE",
+    "size": 2758172,
+    "url": "/assets/audio/s02e08.m4a"
+  },
+  {
+    "season": 2,
+    "n": 9,
+    "t": "Starting a business the right way",
+    "id": "1jPm06TTwbUWMI6Z3sfcCDlBilAp_089R",
+    "size": 2933767,
+    "url": "/assets/audio/s02e09.m4a"
+  },
+  {
+    "season": 2,
+    "n": 10,
+    "t": "The career moves that actually build wealth",
+    "id": "1n_Y022m8X9JK6R0yBH_M51ZOnypLvwpd",
+    "size": 2858699,
+    "url": "/assets/audio/s02e10.m4a"
+  },
+  {
+    "season": 2,
+    "n": 11,
+    "t": "What money is actually for",
+    "id": "1_zlG8q-0NDICNSh9h-ipRmwseU792hk4",
+    "size": 3002439,
+    "url": "/assets/audio/s02e11.m4a"
+  }
 ];
 
 /* =========================================================
@@ -847,7 +987,20 @@ const Auth = (() => {
         return fs.runTransaction(db, async transaction => {
           const booking = await transaction.get(registration);
           const snapshot = await transaction.get(workshop);
-          if (!snapshot.exists()) throw Object.assign(new Error('Registration is not open for this session.'), { code:'workshop/closed' });
+          if (!snapshot.exists()){
+            const planned = SESSIONS.find(s => s.id === id && !s.done);
+            if (!planned) throw Object.assign(new Error('This session is not accepting signups.'), { code:'workshop/closed' });
+            const profileRef = fs.doc(db, 'users', member.uid);
+            const profile = await transaction.get(profileRef);
+            const previous = profile.exists() && profile.data().workshopRequests && profile.data().workshopRequests[id];
+            if (!previous) transaction.set(profileRef, {
+              workshopRequests: { [id]: {
+                name:attendee.name, email:attendee.email, title:planned.title,
+                status:'requested', createdAt:fs.serverTimestamp()
+              }}
+            }, { merge:true });
+            return { id, requestOnly:true, alreadyRegistered:!!previous };
+          }
           const session = snapshot.data();
           if (booking.exists()) return { ...session, id, alreadyRegistered:true };
           if (!session.open) throw Object.assign(new Error('Registration is closed for this session.'), { code:'workshop/closed' });
@@ -855,6 +1008,9 @@ const Auth = (() => {
             throw Object.assign(new Error('This session is fully booked.'), { code:'workshop/full' });
           transaction.set(registration, { uid:member.uid, name:attendee.name, email:attendee.email, createdAt:fs.serverTimestamp() });
           transaction.update(workshop, { taken:session.taken + 1 });
+          transaction.set(fs.doc(db, 'users', member.uid), {
+            workshopRequests: { [id]: { status:'confirmed', confirmedAt:fs.serverTimestamp() } }
+          }, { merge:true });
           return { ...session, id, taken:session.taken + 1, alreadyRegistered:false };
         });
       }
@@ -1868,7 +2024,7 @@ const WorkshopBookings = (() => {
         if (!response.ok) throw Object.assign(new Error(result.message), { code:result.code });
       } else { result = await Auth.reserveWorkshop(id, attendee); }
       /* A newer shared update may arrive before this booking's response. */
-      if (!summaries[id] || result.taken > summaries[id].taken) summaries[id] = result;
+      if (!result.requestOnly && (!summaries[id] || result.taken > summaries[id].taken)) summaries[id] = result;
       emit();
       return result;
     }
@@ -1905,7 +2061,7 @@ function renderSessions(){
   const upcoming = SESSIONS.filter(s => !s.done);
   const available = upcoming.filter(s => {
     const current = WorkshopBookings.session(s.id);
-    return current && current.open && current.taken < current.seats;
+    return !current || (current.open && current.taken < current.seats);
   });
   sel.innerHTML = '<option value="">Choose a session</option>' +
     upcoming.map(s => {
@@ -1916,6 +2072,7 @@ function renderSessions(){
   if (upcoming.some(s => s.id === selected)) sel.value = selected;
   const canReserve = selected ? available.some(s => s.id === selected) : available.length > 0;
   $('#wsSubmit').disabled = workshopSubmitting || !canReserve;
+  $('#wsSignupNote').hidden = upcoming.every(s => !!WorkshopBookings.session(s.id));
   const note = $('#wsNote');
   note.hidden = !WorkshopBookings.preview && !!Auth.user;
   note.innerHTML = WorkshopBookings.preview
@@ -1933,7 +2090,7 @@ function showWorkshopThanks(result, session){
   if (WorkshopBookings.preview) return false;
   try {
     sessionStorage.setItem('profyn-workshop-receipt', JSON.stringify({
-      id:session.id, at:Date.now(), alreadyRegistered:!!result.alreadyRegistered
+      id:session.id, at:Date.now(), alreadyRegistered:!!result.alreadyRegistered, requestOnly:!!result.requestOnly
     }));
     location.assign('/workshops/thanks/');
     return true;
@@ -1962,13 +2119,13 @@ $('#wsForm').addEventListener('submit', async e => {
     return;
   }
   workshopSubmitting = true;
-  const restore = busy($('#wsSubmit'), 'Reserving');
+  const restore = busy($('#wsSubmit'), 'Signing up');
   try {
     const result = await WorkshopBookings.reserve(chosen.id, { name:name.value.trim(), email:email.value.trim().toLowerCase() });
     clearForm($('#wsForm'));
     if (showWorkshopThanks(result, chosen)) return;
-    toast(result.alreadyRegistered ? 'Already registered' : WorkshopBookings.preview ? 'Test seat reserved' : 'Seat reserved',
-      result.alreadyRegistered ? `You already have a seat for ${chosen.title}.`
+    toast(result.requestOnly ? 'Signup request saved' : result.alreadyRegistered ? 'Already registered' : WorkshopBookings.preview ? 'Test seat reserved' : 'Seat reserved',
+      result.requestOnly ? `Your signup request for ${chosen.title} has been saved. Your seat and joining details are not confirmed yet.` : result.alreadyRegistered ? `You already have a seat for ${chosen.title}.`
       : WorkshopBookings.preview ? `Your test booking for ${chosen.title} was saved locally. No email will be sent.`
       : `Your registration for ${chosen.title} has been saved.`);
   } catch (err) {
@@ -1981,19 +2138,23 @@ $('#wsForm').addEventListener('submit', async e => {
    LISTEN
    ========================================================= */
 function renderEpisodes(){
-  $('#episodeList').innerHTML = [...EPISODES].reverse().map((ep, i) => `
-    <article class="ep reveal" style="--i:${Math.min(i, 6)}">
-      <span class="ep-n num">${String(ep.n).padStart(2,'0')}</span>
-      <div>
-        <h3>${esc(ep.t)}</h3>
-        <p>${esc(ep.d)}</p>
-      </div>
-      <a class="btn btn-2 btn-sm" href="${ep.url}" target="_blank" rel="noopener noreferrer">
-        Listen<svg class="ic" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
-      </a>
-    </article>`).join('');
+  for (const season of [1, 2]){
+    $('#season' + season + 'Episodes').innerHTML = EPISODES.filter(ep => ep.season === season).map(ep => `
+      <article class="ep podcast-episode">
+        <span class="ep-n num">${String(ep.n).padStart(2,'0')}</span>
+        <div><p class="meta">Season ${ep.season} · Episode ${ep.n}</p>
+          <h3>${esc(ep.t)}</h3>
+          <audio controls preload="none" aria-label="${esc(ep.t)}"><source src="${ep.url}" type="audio/mp4">Your browser does not support audio playback.</audio>
+          <a class="meta" href="${ep.url}" download>Download audio</a>
+        </div>
+      </article>`).join('');
+  }
   observeReveals($('#page-listen'));
 }
+document.addEventListener('play', event => {
+  if (!(event.target instanceof HTMLAudioElement)) return;
+  $$('#page-listen audio').forEach(player => { if (player !== event.target) player.pause(); });
+}, true);
 
 // Set this to the deployed Profyn-owned Apps Script web app after sender setup.
 const NEWSLETTER_ENDPOINT = '';

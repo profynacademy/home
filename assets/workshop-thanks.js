@@ -8,8 +8,8 @@
   try { receipt = JSON.parse(sessionStorage.getItem('profyn-workshop-receipt')); } catch (error) {}
   const session = receipt && sessions[receipt.id];
   if (!session || !Number.isFinite(receipt.at) || receipt.at > Date.now() || Date.now() - receipt.at > 86400000) return;
-  document.querySelector('#thanksTitle').textContent = receipt.alreadyRegistered ? 'You already have a seat.' : 'Thanks for signing up.';
-  document.querySelector('#thanksMessage').textContent = 'Your workshop registration has been saved.';
+  document.querySelector('#thanksTitle').textContent = receipt.requestOnly ? 'Thanks for signing up.' : receipt.alreadyRegistered ? 'You already have a seat.' : 'Thanks for signing up.';
+  document.querySelector('#thanksMessage').textContent = receipt.requestOnly ? 'Your signup request has been saved to your Profyn account. Your seat and joining details are not confirmed yet.' : 'Your workshop registration has been saved.';
   document.querySelector('#thanksSession').textContent = session.title;
   document.querySelector('#thanksDate').textContent = session.date + ' · ' + session.time;
   document.querySelector('#thanksHost').textContent = 'Led by ' + session.host;

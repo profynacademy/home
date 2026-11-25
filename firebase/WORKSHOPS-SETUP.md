@@ -29,3 +29,20 @@ The current `firebase/firestore.rules` permits public summary reads, and a signe
 Local preview uses a separate server-side test store and never writes registrations to production. No workshop email service is configured by this feature.
 
 References: [Firestore console data management](https://firebase.google.com/docs/firestore/manage-data/add-data), [transactions](https://firebase.google.com/docs/firestore/manage-data/transactions), [atomic-write security rules](https://firebase.google.com/docs/firestore/security/rules-conditions).
+
+## Signup requests before a workshop summary is initialized
+
+The public form now saves a signed-in member's request under their own private
+`users/{uid}.workshopRequests.{workshopId}` field when the summary document does
+not exist. The record includes name, email, title, a server timestamp, and
+`status: requested`. Repeated requests by the same member do not create duplicates.
+
+This uses the existing account rules; it requires no new public database access.
+It does not reserve capacity, increment a public seat counter, send email, or
+provide a meeting link. The form and thank-you page say this explicitly.
+
+Admins can view these requests in Firestore's users collection. Once a summary
+exists and is open, the same form uses the existing atomic reservation path.
+It records the private attendee, increments the summary once, and marks the
+member's request confirmed. Creating the summary does not automatically convert
+earlier requests into reservations.

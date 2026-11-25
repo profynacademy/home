@@ -1007,3 +1007,10 @@ p{text-wrap:pretty;}
 /* The newsletter honeypot is outside the visible form flow. */
 .news-honeypot { position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden; }
 #newsStatus { margin-top:12px; }
+
+/* Recorded seasons: native audio loads only when a visitor starts playback. */
+.podcast-season-full + .podcast-season-full{margin-top:48px}
+.podcast-season-full > h2{display:flex;align-items:baseline;flex-wrap:wrap;gap:12px;margin:0 0 16px}
+.podcast-episode{grid-template-columns:42px minmax(0,1fr);align-items:start}
+.podcast-episode audio{display:block;width:100%;max-width:100%;margin:16px 0 8px}
+.podcast-episode h3{overflow-wrap:anywhere}
