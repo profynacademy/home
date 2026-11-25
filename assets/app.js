@@ -1975,16 +1975,86 @@ function renderEpisodes(){
   observeReveals($('#page-listen'));
 }
 
-$('#newsForm').addEventListener('submit', e => {
+// Set this to the deployed Profyn-owned Apps Script web app after sender setup.
+const NEWSLETTER_ENDPOINT = '';
+
+function newsletterEndpointReady(){
+  return /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(NEWSLETTER_ENDPOINT);
+}
+
+function newsletterStatus(message){
+  const status = $('#newsStatus');
+  status.textContent = message;
+  status.hidden = !message;
+}
+
+function submitNewsletter(email){
+  return new Promise((resolve, reject) => {
+    const nonce = crypto.randomUUID();
+    const iframe = document.createElement('iframe');
+    iframe.name = 'profyn-newsletter-' + nonce;
+    iframe.title = 'Newsletter subscription';
+    iframe.hidden = true;
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = NEWSLETTER_ENDPOINT;
+    form.target = iframe.name;
+    form.hidden = true;
+    const fields = {email, nonce, origin:location.origin, consent:'yes', website:$('#newsWebsite').value};
+    Object.entries(fields).forEach(([name, value]) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = name;
+      input.value = value;
+      form.append(input);
+    });
+    let timer;
+    const cleanup = () => {
+      clearTimeout(timer);
+      window.removeEventListener('message', receive);
+      iframe.remove();
+      form.remove();
+    };
+    const receive = event => {
+      const trustedOrigin = /^https:\/\/(?:script\.google\.com|(?:[a-z0-9-]+\.)?script\.googleusercontent\.com|[a-z0-9-]+-script\.googleusercontent\.com)$/.test(event.origin);
+      const result = event.data;
+      if (!trustedOrigin || !result || result.type !== 'profyn-newsletter' || result.nonce !== nonce) return;
+      cleanup();
+      if (result.ok === true) resolve(String(result.message || 'Check your inbox to confirm your subscription.'));
+      else reject(new Error(String(result.message || 'Please try again in a moment.')));
+    };
+    window.addEventListener('message', receive);
+    timer = setTimeout(() => {
+      cleanup();
+      reject(new Error('We could not confirm your request. Check your inbox before trying again.'));
+    }, 25000);
+    document.body.append(iframe, form);
+    form.submit();
+  });
+}
+
+$('#newsSubmit').disabled = !newsletterEndpointReady();
+if (!newsletterEndpointReady()){
+  newsletterStatus('Monthly newsletter signup is being prepared. Check back soon.');
+}
+
+$('#newsForm').addEventListener('submit', async e => {
   e.preventDefault();
+  if (!newsletterEndpointReady()) return;
   const email = $('#newsEmail');
   if (!checkForm([[email,'email']])) return;
   const restore = busy($('#newsSubmit'), 'Subscribing');
-  setTimeout(() => {
-    restore();
+  newsletterStatus('');
+  try {
+    const message = await submitNewsletter(email.value.trim());
     clearForm($('#newsForm'));
-    toast('You are subscribed', 'One email a week. Unsubscribe from the footer of any of them.');
-  }, 800);
+    newsletterStatus(message);
+    toast('Check your inbox', message);
+  } catch (error) {
+    newsletterStatus(error.message);
+  } finally {
+    restore();
+  }
 });
 
 /* =========================================================

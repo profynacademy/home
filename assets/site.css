@@ -1003,3 +1003,7 @@ p{text-wrap:pretty;}
   .cd-list{max-height:232px;}
   .cd-panel{padding:22px 18px;}
 }
+
+/* The newsletter honeypot is outside the visible form flow. */
+.news-honeypot { position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden; }
+#newsStatus { margin-top:12px; }
