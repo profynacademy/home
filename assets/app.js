@@ -1929,6 +1929,19 @@ $('#wsSession').addEventListener('change', renderSessions);
 WorkshopBookings.onChange(() => { if (currentPage === 'workshops') renderSessions(); });
 Auth.onChange(() => { if (currentPage === 'workshops') renderSessions(); });
 
+function showWorkshopThanks(result, session){
+  if (WorkshopBookings.preview) return false;
+  try {
+    sessionStorage.setItem('profyn-workshop-receipt', JSON.stringify({
+      id:session.id, at:Date.now(), alreadyRegistered:!!result.alreadyRegistered
+    }));
+    location.assign('/workshops/thanks/');
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
 $('#wsForm').addEventListener('submit', async e => {
   e.preventDefault();
   if (workshopSubmitting) return;
@@ -1953,6 +1966,7 @@ $('#wsForm').addEventListener('submit', async e => {
   try {
     const result = await WorkshopBookings.reserve(chosen.id, { name:name.value.trim(), email:email.value.trim().toLowerCase() });
     clearForm($('#wsForm'));
+    if (showWorkshopThanks(result, chosen)) return;
     toast(result.alreadyRegistered ? 'Already registered' : WorkshopBookings.preview ? 'Test seat reserved' : 'Seat reserved',
       result.alreadyRegistered ? `You already have a seat for ${chosen.title}.`
       : WorkshopBookings.preview ? `Your test booking for ${chosen.title} was saved locally. No email will be sent.`

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,follow">
+<title>Your workshop | Profyn</title>
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css?v=20261125-newsletter">
+<style>
+.thanks-nav{padding-block:28px;border-bottom:1px solid var(--line)}
+.thanks-brand{font-family:var(--font-display);font-weight:800;font-size:26px;color:var(--ink);text-decoration:none}
+.thanks-wrap{max-width:760px;padding-block:clamp(48px,10vw,112px)}
+.thanks-wrap h1{font-size:clamp(38px,7vw,64px);line-height:1.08;margin:18px 0 24px}
+.thanks-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(20px,5vw,36px);margin:32px 0}
+.thanks-card h2{margin-bottom:16px}.thanks-card p+p{margin-top:8px}
+.thanks-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+</style>
+<script defer src="/assets/workshop-thanks.js?v=20261125"></script>
+</head>
+<body>
+<header class="thanks-nav"><nav class="shell" aria-label="Main"><a class="thanks-brand" href="/">Profyn.</a></nav></header>
+<main class="shell thanks-wrap">
+<span class="eyebrow">Profyn workshops</span>
+<h1 id="thanksTitle">Find your next money move.</h1>
+<p class="lede" id="thanksMessage">Your session details will appear here after a successful workshop registration.</p>
+<section class="thanks-card" id="thanksDetails" hidden aria-label="Your reserved workshop">
+<h2 id="thanksSession"></h2>
+<p id="thanksDate"></p>
+<p class="meta" id="thanksHost"></p>
+</section>
+<div class="thanks-actions">
+<a class="btn" href="/workshops/">Back to workshops</a>
+<a class="btn btn-2" href="/courses/">Explore free courses</a>
+</div>
+</main>
+</body>
+</html>
